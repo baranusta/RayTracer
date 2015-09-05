@@ -1,2 +1,2 @@
 # RayTracer
-Ray Tracing algorithm implemented both openMP and CUDA
+Ray Tracing algorithm implemented for both openMP and CUDA
