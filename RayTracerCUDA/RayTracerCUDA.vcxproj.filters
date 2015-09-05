@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="SphereGPU.cpp">
+      <Filter>GPUGeometricObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="RectWorld.cpp">
+      <Filter>GeometricObject</Filter>
+    </ClCompile>
+    <ClCompile Include="FileReading.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Vec3.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>GeometricObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometricObject.cpp">
+      <Filter>GeometricObject</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="RayTrace.cu" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="GPUGeometricObjects">
+      <UniqueIdentifier>{2923bb98-9530-4425-809e-c4410bd367d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GeometricObject">
+      <UniqueIdentifier>{befc8455-d1c5-4947-bd5d-0cbb107d7c1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{116d104f-ccfe-45d2-a3c5-0a29fbde7a27}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RectWorld.h">
+      <Filter>GeometricObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec3.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometricObject.h">
+      <Filter>GeometricObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>GeometricObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereGPU.h">
+      <Filter>GPUGeometricObjects</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
