@@ -13,6 +13,7 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
+#include "FrameTextViewGL.h"
 // CUDA includes
 #include <cuda_runtime.h>
 #include <cuda_gl_interop.h>
@@ -34,7 +35,6 @@ int iGLUTWindowHandle2 = 0;
 */
 int ProcessingType = 1;
 
-int frame = 0, timeK, timebase = 0;
 typedef Vec3 Angle;
 typedef Vec3 Color;
 float eyePosx = -25000;
@@ -54,6 +54,9 @@ struct cudaGraphicsResource *bufferCuda;
 GLuint textureID;
 float ka = 0.2f;
 
+//GLWindow Texts
+std::vector<TextViewGL*> textViews; 
+TextViewGL* Mode;
 
 
 void Initialize();
@@ -63,6 +66,7 @@ extern "C" void FreeMemoryOnGPU();
 extern bool CreateWorld(std::string);
 extern int elmSize;
 
+void FreeMemory();
 
 
 float* SphereOnGpu;
@@ -219,15 +223,56 @@ void keyBoardListener(unsigned char key, int _x, int _y)
 	if (key == '1' || key == '2' || key == '3')
 	{
 		ProcessingType = (int)(key - '0');
+		switch (ProcessingType)
+		{
+			case 1:
+				Mode->SetText("Mode:CPU");
+				break;
+			case 2:
+				Mode->SetText("Mode:OpenMP");
+				break;
+			case 3:
+				Mode->SetText("Mode:CUDA");
+				break;
+			default:
+				break;
+		}
 	}
+}
+
+//DISPLAY 
+void textDisplay()
+{
+
+	glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+	
+	for (TextViewGL *v : textViews)
+	{
+		v->draw();
+	}
+
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+
 }
 
 void display()
 {
-	//glBindTexture(GL_TEXTURE_2D, texture);
-	glEnable(GL_TEXTURE_2D);
+
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
+	//glBindTexture(GL_TEXTURE_2D, texture);
+	glEnable(GL_TEXTURE_2D);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
 
@@ -273,7 +318,9 @@ void display()
 	glLoadIdentity();
 	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
 
+
 	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
 	glLoadIdentity();
 
 	glViewport(0, 0, window_width2, window_height2);
@@ -290,23 +337,14 @@ void display()
 	glVertex3f(-1.0, 1.0, 0.5);
 	glEnd();
 
+	glPopMatrix();
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
 
 	glDisable(GL_TEXTURE_2D);
-	frame++;
-	timeK = glutGet(GLUT_ELAPSED_TIME);
-	char s[50];
-	if (timeK - timebase > 1000) {
-		sprintf(s, "FPS:%4.2f",
-			frame*1000.0 / (timeK - timebase));
-		timebase = timeK;
-		frame = 0;
-		glutSetWindowTitle(s);
-	}
 
+	textDisplay();
 	glutSwapBuffers(); glutPostRedisplay();
-
 
 }
 void CopyToGPU()
@@ -334,6 +372,17 @@ void CopyToGPU()
 
 }
 
+
+//SetView
+void SetTexts()
+{
+	textViews.push_back(new FrameTextViewGL());
+	Mode = new TextViewGL("Mode: CPU");
+	textViews.push_back(Mode);
+
+}
+
+
 void InitializeMemoryGPU()
 {
 	glGenBuffers(2, &ObjectsBuffer);
@@ -360,7 +409,7 @@ void Initialize() {
 	glutInitDisplayMode(GLUT_RGBA | GLUT_ALPHA | GLUT_DOUBLE | GLUT_DEPTH);
 
 	glutInitWindowSize(window_width2, window_height2);
-	iGLUTWindowHandle2 = glutCreateWindow("Murat Deneme");
+	iGLUTWindowHandle2 = glutCreateWindow("Ray Tracer Cuda");
 
 	// initialize necessary OpenGL extensions
 	glewInit();
@@ -380,6 +429,7 @@ void Initialize() {
 	// register callbacks
 	glutDisplayFunc(display);
 	glutKeyboardFunc(keyBoardListener);
+	glutCloseFunc(FreeMemory);
 
 
 	// Generate a buffer ID
@@ -408,9 +458,26 @@ void Initialize() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+	SetTexts();
+
 	glutMainLoop();
 
 
+}
+
+template <class T>
+void DeletePtrVector(std::vector<T> &vect)
+{
+	for (T obj : vect)
+		delete obj;
+	vect.clear();
+}
+
+void FreeMemory()
+{
+	DeletePtrVector(textViews);
+	DeletePtrVector(*Objects);
+	delete World;
 }
 
 int main()
@@ -421,8 +488,8 @@ int main()
 	//CopyToGpu();
 	checkCudaErrors(cudaGLSetGLDevice(0));
 	//SetMemoryOnGPU(size, SphereOnCpu);
+ 
 	Initialize();
-
-	delete World;
+	
 	return 0;
 }

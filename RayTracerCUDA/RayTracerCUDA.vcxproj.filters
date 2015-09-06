@@ -20,6 +20,9 @@
     <ClCompile Include="GeometricObject.cpp">
       <Filter>GeometricObject</Filter>
     </ClCompile>
+    <ClCompile Include="TextViewGL.cpp">
+      <Filter>ViewUtils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="RayTrace.cu" />
@@ -33,6 +36,9 @@
     </Filter>
     <Filter Include="Utils">
       <UniqueIdentifier>{116d104f-ccfe-45d2-a3c5-0a29fbde7a27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ViewUtils">
+      <UniqueIdentifier>{f8379e0c-31d0-4930-baec-fb78a1707e37}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +56,12 @@
     </ClInclude>
     <ClInclude Include="SphereGPU.h">
       <Filter>GPUGeometricObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="TextViewGL.h">
+      <Filter>ViewUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameTextViewGL.h">
+      <Filter>ViewUtils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

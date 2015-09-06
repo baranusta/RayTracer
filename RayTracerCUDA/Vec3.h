@@ -21,4 +21,6 @@ private:
 	float z;
 };
 
+typedef Vec3 Color;
+
 #endif
