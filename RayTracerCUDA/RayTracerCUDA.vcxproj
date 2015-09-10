@@ -166,23 +166,33 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <CudaCompile Include="RayTrace.cu" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FileReading.cpp" />
-    <ClCompile Include="GeometricObject.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="RectWorld.cpp" />
-    <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="RayTracers\RayTracingController.cpp" />
+    <ClCompile Include="RayTracers\RayTracingStrategyCPU.cpp" />
     <ClCompile Include="SphereGPU.cpp" />
-    <ClCompile Include="TextViewGL.cpp" />
-    <ClCompile Include="Vec3.cpp" />
+    <ClCompile Include="Utils\FileReading.cpp" />
+    <ClCompile Include="Utils\Vec3.cpp" />
+    <ClCompile Include="ViewUtils\TextViewGL.cpp" />
+    <ClCompile Include="World.cpp" />
+    <ClCompile Include="WorldObjects\GeometricObject.cpp" />
+    <ClCompile Include="WorldObjects\Sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FrameTextViewGL.h" />
-    <ClInclude Include="GeometricObject.h" />
-    <ClInclude Include="RectWorld.h" />
-    <ClInclude Include="Sphere.h" />
+    <ClInclude Include="RayTracers\RayTracingController.h" />
+    <ClInclude Include="RayTracers\RayTracingStrategy.h" />
+    <ClInclude Include="RayTracers\RayTracingStrategyCPU.h" />
+    <ClInclude Include="RayTracers\RayTracingStrategyCUDA.h" />
+    <ClInclude Include="RayTracers\RayTracingStrategySequential.h" />
+    <ClInclude Include="RayTracers\RayTracingStratingOpenMP.h" />
     <ClInclude Include="SphereGPU.h" />
-    <ClInclude Include="TextViewGL.h" />
-    <ClInclude Include="Vec3.h" />
+    <ClInclude Include="Utils\Vec3.h" />
+    <ClInclude Include="ViewUtils\FrameTextViewGL.h" />
+    <ClInclude Include="ViewUtils\TextViewGL.h" />
+    <ClInclude Include="World.h" />
+    <ClInclude Include="WorldObjects\Camera.h" />
+    <ClInclude Include="WorldObjects\GeometricObject.h" />
+    <ClInclude Include="WorldObjects\Light.h" />
+    <ClInclude Include="WorldObjects\Sphere.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

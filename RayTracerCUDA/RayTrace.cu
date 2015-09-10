@@ -6,7 +6,7 @@
 #include "device_functions.h"
 #include "SphereGpu.h"
 #include <iostream>
-#include "Vec3.h"
+#include "Utils\Vec3.h"
 
 int elmSize;
 
@@ -206,7 +206,6 @@ void cudaMoveObjects(float* spheres, int size)
 	int id = threadIdx.x;
 	if (id < size)
 	{
-
 		float dir = spheres[id * 8 + 7];
 		if (spheres[id * 8 + 1] > 300 || spheres[id * 8 + 1] < -300)
 		{
@@ -224,6 +223,7 @@ void cudaMoveObjects(float* spheres, int size)
 }
 extern "C" void CudaMain(float* SphereOnGpu, unsigned int* out_data, int window_height2, int window_width2)
 {
+
 	cudaMoveObjects << <1, 32 >> >(SphereOnGpu, elmSize);
 	cudaProcess << <256, window_width2 >> >(SphereOnGpu, out_data, window_width2, window_height2, elmSize);
 	gpuErrchk(cudaPeekAtLastError());
