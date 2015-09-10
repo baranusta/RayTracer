@@ -29,3 +29,5 @@
 
 *.tlog
 *.idb
+*.exp
+*.vcxproj
