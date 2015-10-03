@@ -25,7 +25,12 @@
 #include "RayTracers\RayTracingStrategyCUDA.h"
 #include "World.h"
 
-//std::vector<GeometricObject*>* Objects;
+
+//******************//
+//***TEST
+#define WILLTEST false
+extern int TestMain();
+//******************//
 
 unsigned int window_width2 = 768;
 unsigned int window_height2 = 512;
@@ -328,15 +333,19 @@ void FreeMemory()
 
 int main()
 {
-	world = new World();
-	CreateWorld("World.txt");
-	mRayTracerController.AddStrategy(RayTracingOptions::Sequential, new RayTracingStrategySequential());
-	mRayTracerController.AddStrategy(RayTracingOptions::OpenMP, new RayTracingStrategyOpenMP());
-	mRayTracerController.AddStrategy(RayTracingOptions::CUDA, new RayTracingStrategyCUDA());
+	if (WILLTEST){
+		return TestMain();
+	}
+	else{
+		world = new World();
+		CreateWorld("World.txt");
+		mRayTracerController.AddStrategy(RayTracingOptions::Sequential, new RayTracingStrategySequential());
+		mRayTracerController.AddStrategy(RayTracingOptions::OpenMP, new RayTracingStrategyOpenMP());
+		mRayTracerController.AddStrategy(RayTracingOptions::CUDA, new RayTracingStrategyCUDA());
 
-	checkCudaErrors(cudaGLSetGLDevice(0));
-	
-	Initialize();
-	
-	return 0;
+		checkCudaErrors(cudaGLSetGLDevice(0));
+
+		Initialize();
+		return 0;
+	}
 }

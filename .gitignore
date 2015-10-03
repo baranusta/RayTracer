@@ -32,3 +32,4 @@
 *.exp
 *.vcxproj
 RayTracerCUDA.opensdf
+*.deps
