@@ -28,7 +28,7 @@
 
 //******************//
 //***TEST
-#define WILLTEST false
+#define WILLTEST true
 extern int TestMain();
 //******************//
 
@@ -225,8 +225,8 @@ void CopyToGPU()
 //SetView
 void SetTexts()
 {
-	textViews.push_back(new FrameTextViewGL());
-	Mode = new TextViewGL();
+	textViews.push_back(new FrameTextViewGL(-0.95f, 0.88f));
+	Mode = new TextViewGL(-0.95f,0.88f);
 	textViews.push_back(Mode);
 }
 

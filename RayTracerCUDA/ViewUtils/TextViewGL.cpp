@@ -4,10 +4,14 @@
 
 int TextViewGL::_itemCount = 0;
 
-TextViewGL::TextViewGL()
+int TextViewGL::GetItemCount(){
+	return _itemCount;
+}
+
+TextViewGL::TextViewGL(float xMargin,float yMargin)
 {
 	text = "FPS: 1";
-	this->InitObject(Color(0,0,0));
+	this->InitObject(xMargin,yMargin,Color(0,0,0));
 }
 
 void TextViewGL::SetColor(Color col)
@@ -15,20 +19,20 @@ void TextViewGL::SetColor(Color col)
 	this->col = col;
 }
 
-TextViewGL::TextViewGL(std::string t)
+TextViewGL::TextViewGL(float xMargin, float yMargin, std::string t)
 {
 	text = t;
-	this->InitObject(Color(0, 0, 0));
+	this->InitObject(xMargin, yMargin, Color(0, 0, 0));
 }
 
 TextViewGL::~TextViewGL()
 {
 }
 
-void TextViewGL::InitObject(Color col)
+void TextViewGL::InitObject(float xMargin, float yMargin, Color col)
 {
-	xPos = -0.95f;
-	yPos = +0.88f - 0.1f*_itemCount;
+	xPos = xMargin;
+	yPos = yMargin - 0.1f*_itemCount;
 	_itemCount ++;
 	this->col = col;
 }

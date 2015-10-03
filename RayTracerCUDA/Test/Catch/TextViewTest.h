@@ -1,22 +1,20 @@
 #ifndef _TEXTVIEWGL_H_
 #define _TEXTVIEWGL_H_
 
-#include "..\Utils\Vec3.h"
-#include "GL\freeglut.h"
-#include <string>
+#include "Catch/catch.h"
 
 class TextViewGL{
 public:
-	TextViewGL(float xMargin, float yMargin);
-	TextViewGL(float xMargin, float yMargin,std::string t);
+	TextViewGL();
+	TextViewGL(std::string t);
 	~TextViewGL();
 	virtual void draw();
 	void SetColor(Color col);
 	void SetText(char* text);
-	static int GetItemCount();
 private:
-	void InitObject(float xMargin, float yMargin,Color c);
+	void InitObject(Color c);
 	std::string text;
+	int textLength;
 	float xPos;
 	float yPos;
 	Color col;

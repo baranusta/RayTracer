@@ -59,6 +59,9 @@
     <Filter Include="Test\Catch">
       <UniqueIdentifier>{5f5ae682-4cc5-442b-8e93-eefc95f8bb0e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Test\TextView">
+      <UniqueIdentifier>{ac8b3160-239e-4616-a9c6-9c92d3db06b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="World.h" />
@@ -106,6 +109,12 @@
     </ClInclude>
     <ClInclude Include="Test\Catch\Catch.h">
       <Filter>Test\Catch</Filter>
+    </ClInclude>
+    <ClInclude Include="Test\TextView\TextViewTest.h">
+      <Filter>Test\TextView</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\RandomGenerator.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

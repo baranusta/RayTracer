@@ -1,13 +1,16 @@
 #ifndef _FRAMETEXTVIEWGL_H_
 #define _FRAMETEXTVIEWGL_H_
 
-#include "Utils\Vec3.h"
 #include "TextViewGL.h"
 #include <stdio.h>
 
 class FrameTextViewGL :public TextViewGL
 {
 public:
+	FrameTextViewGL(float xMargin, float yMargin)
+		:TextViewGL(xMargin,yMargin)
+	{
+	}
 	void draw()
 	{
 		this->setFrameText();
