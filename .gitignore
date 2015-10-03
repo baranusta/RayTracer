@@ -31,3 +31,4 @@
 *.idb
 *.exp
 *.vcxproj
+RayTracerCUDA.opensdf
