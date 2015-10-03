@@ -2,21 +2,12 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="SphereGPU.cpp">
-      <Filter>GPUGeometricObjects</Filter>
-    </ClCompile>
     <ClCompile Include="World.cpp" />
     <ClCompile Include="RayTracers\RayTracingController.cpp">
       <Filter>RayTracers</Filter>
     </ClCompile>
     <ClCompile Include="RayTracers\RayTracingStrategyCPU.cpp">
       <Filter>RayTracers</Filter>
-    </ClCompile>
-    <ClCompile Include="WorldObjects\GeometricObject.cpp">
-      <Filter>WorldObjects\GeometricObject</Filter>
-    </ClCompile>
-    <ClCompile Include="WorldObjects\Sphere.cpp">
-      <Filter>WorldObjects\GeometricObject</Filter>
     </ClCompile>
     <ClCompile Include="ViewUtils\TextViewGL.cpp">
       <Filter>ViewUtils</Filter>
@@ -27,34 +18,49 @@
     <ClCompile Include="Utils\Vec3.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Objects\WorldObjects\GeometricObject.cpp">
+      <Filter>Objects\WorldObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\WorldObjects\Sphere.cpp">
+      <Filter>Objects\WorldObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\MainTest.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="RayTrace.cu" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="GPUGeometricObjects">
-      <UniqueIdentifier>{2923bb98-9530-4425-809e-c4410bd367d6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utils">
       <UniqueIdentifier>{116d104f-ccfe-45d2-a3c5-0a29fbde7a27}</UniqueIdentifier>
     </Filter>
     <Filter Include="ViewUtils">
       <UniqueIdentifier>{f8379e0c-31d0-4930-baec-fb78a1707e37}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WorldObjects">
-      <UniqueIdentifier>{2799ed73-55f6-4c9f-a7c6-d2dcac5ae8df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="WorldObjects\GeometricObject">
-      <UniqueIdentifier>{befc8455-d1c5-4947-bd5d-0cbb107d7c1b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="RayTracers">
       <UniqueIdentifier>{253fc611-88c6-47df-9419-5eb5e0ee24de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{95499e2e-1aaa-487d-9a08-eda7a97f751c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Light">
+      <UniqueIdentifier>{6145c955-2c38-4cdb-8252-6ac8e870c799}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\WorldObjects">
+      <UniqueIdentifier>{6e9c6065-5648-442a-a667-d88ad9592912}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Camera">
+      <UniqueIdentifier>{b38ee37b-9fbf-48b6-bec0-0617b01a81c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{68ac1619-3d60-43c8-a6c4-35afb35e17d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test\Catch">
+      <UniqueIdentifier>{5f5ae682-4cc5-442b-8e93-eefc95f8bb0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SphereGPU.h">
-      <Filter>GPUGeometricObjects</Filter>
-    </ClInclude>
     <ClInclude Include="World.h" />
     <ClInclude Include="RayTracers\RayTracingStratingOpenMP.h">
       <Filter>RayTracers</Filter>
@@ -74,18 +80,6 @@
     <ClInclude Include="RayTracers\RayTracingStrategySequential.h">
       <Filter>RayTracers</Filter>
     </ClInclude>
-    <ClInclude Include="WorldObjects\Camera.h">
-      <Filter>WorldObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="WorldObjects\Light.h">
-      <Filter>WorldObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="WorldObjects\GeometricObject.h">
-      <Filter>WorldObjects\GeometricObject</Filter>
-    </ClInclude>
-    <ClInclude Include="WorldObjects\Sphere.h">
-      <Filter>WorldObjects\GeometricObject</Filter>
-    </ClInclude>
     <ClInclude Include="ViewUtils\FrameTextViewGL.h">
       <Filter>ViewUtils</Filter>
     </ClInclude>
@@ -94,6 +88,24 @@
     </ClInclude>
     <ClInclude Include="Utils\Vec3.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Light\Light.h">
+      <Filter>Objects\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\WorldObjects\GeometricObject.h">
+      <Filter>Objects\WorldObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\WorldObjects\Sphere.h">
+      <Filter>Objects\WorldObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Camera\Camera.h">
+      <Filter>Objects\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Light\DirectedLight.h">
+      <Filter>Objects\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Test\Catch\Catch.h">
+      <Filter>Test\Catch</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
