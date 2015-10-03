@@ -5,9 +5,6 @@
 #include "TextViewGL.h"
 #include <stdio.h>
 
-
-typedef Vec3 Color;
-
 class FrameTextViewGL :public TextViewGL
 {
 public:

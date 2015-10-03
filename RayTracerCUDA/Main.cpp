@@ -2,8 +2,8 @@
 #include <string>
 #include <omp.h>
 
-#include "WorldObjects\GeometricObject.h"
-#include "WorldObjects\Sphere.h"
+#include "Objects\WorldObjects\GeometricObject.h"
+#include "Objects\WorldObjects\Sphere.h"
 #include "Utils\Vec3.h"
 #include "SphereGPU.h"
 
@@ -81,18 +81,16 @@ float clamp2(float x, float a, float b)
 {
 	return max(a, min(b, x));
 }
-void SetModeText(char * str)
-{
-	std::cout << *str << std::endl;
-	Mode->SetText(str);
-}
 
 void keyBoardListener(unsigned char key, int _x, int _y)
 {
 	//StrategySettingKeys
 	if (key == '1' || key == '2' || key == '3')
 	{
-		mRayTracerController.SetStrategy((int)(key - '0'), &SetModeText);
+		//lambda for the first time yeyyy
+		mRayTracerController.SetStrategy((int)(key - '0'), [](char* str){
+			Mode->SetText(str);
+		});
 		if (key != '3')
 			world->SetUpdateType((int)(key - '0'));
 		ProcessingType = (int)(key - '0');
@@ -223,7 +221,7 @@ void CopyToGPU()
 void SetTexts()
 {
 	textViews.push_back(new FrameTextViewGL());
-	Mode = new TextViewGL("Mode: CPU");
+	Mode = new TextViewGL();
 	textViews.push_back(Mode);
 }
 
@@ -305,8 +303,9 @@ void Initialize() {
 
 	SetTexts();
 
-	//default one
-	mRayTracerController.SetStrategy(RayTracingOptions::Sequential, &SetModeText);
+	//default strategy set
+	//default Mode text set
+	keyBoardListener('1', 0, 0);
 
 	glutMainLoop();
 

@@ -2,7 +2,7 @@
 #define _RAYTRACINGSTRATEGYCPU_H_
 
 #include "RayTracingStrategy.h"
-#include "..\WorldObjects\GeometricObject.h"
+#include "..\Objects\WorldObjects\GeometricObject.h"
 #include <algorithm>
 #include <vector>
 

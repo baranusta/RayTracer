@@ -2,7 +2,7 @@
 #define _GEOMETRICOBJECT_H_
 
 
-#include "..\Utils\Vec3.h"
+#include "..\..\Utils\Vec3.h"
 
 class RectWorld;
 

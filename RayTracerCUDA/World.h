@@ -7,7 +7,7 @@
 #include <GL/glew.h>
 
 #include "Utils\Vec3.h"
-#include "WorldObjects\GeometricObject.h"
+#include "Objects\WorldObjects\GeometricObject.h"
 
 /*
 This class is responsible for all the objects in the scene

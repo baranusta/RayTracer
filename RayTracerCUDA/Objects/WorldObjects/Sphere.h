@@ -1,7 +1,7 @@
 #ifndef _SPHERE_H_
 #define _SPHERE_H_
 
-#include "..\Utils\Vec3.h"
+#include "..\..\Utils\Vec3.h"
 #include <string>
 #include <sstream>
 #include "GeometricObject.h"

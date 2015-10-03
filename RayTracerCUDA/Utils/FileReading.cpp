@@ -1,7 +1,7 @@
 
 #include <fstream>
 #include <sstream>
-#include "..\WorldObjects\Sphere.h"
+#include "..\Objects\WorldObjects\Sphere.h"
 #include "Vec3.h"
 #include "..\World.h"
 
