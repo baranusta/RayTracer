@@ -6,8 +6,9 @@
 
 #include <GL/glew.h>
 
-#include "Utils\Vec3.h"
+#include "Utils\Utils.h"
 #include "Objects\WorldObjects\GeometricObject.h"
+#include "Objects\Light\Light.h"
 
 /*
 This class is responsible for all the objects in the scene
@@ -20,14 +21,18 @@ class World
 {
 public:
 	World();
+	World(Color);
 	~World();
 	void UpdateObjects();
 	void SetUpdateType(int type);
 	void CopyToGPUArray(GLfloat * obj);
-	int GetObjectSize();
 	void AddObject(GeometricObject*);
-	float GetKA();
-	Vec3 GetLight();
+	Light GetLight();
+	int GetObjectSize();
+	Color GetAmbient();
+
+	void AddLight(Vec3 pos, Color Ambient, Color Diffuse, Color Specular);
+	void AddLight(Light light);
 	//This will be removed
 	//when the raytracing strategies implemented
 	std::vector<GeometricObject*>* GetObjects(){
@@ -38,10 +43,10 @@ private:
 	void UpdateObjectsOpenMP();
 
 	int updateType = 1;
-	float ka = 0.2f;
+	Color AmbientColor;
 
 	//Later This Will hold Light Objects
-	std::vector<Vec3> Light;
+	std::vector<Light> lights;
 	std::vector<GeometricObject*>* Objects;
 };
 

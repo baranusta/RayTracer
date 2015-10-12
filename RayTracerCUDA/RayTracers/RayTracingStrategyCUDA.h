@@ -7,12 +7,13 @@
 class RayTracingStrategyCUDA : public RayTracingStrategy
 {
 public:
-	RayTracingStrategyCUDA()
+	RayTracingStrategyCUDA(float d, float p)
+		:RayTracingStrategy(d,p)
 	{
 		this->name = "CUDA";
 	}
 
-	void DrawNextFrame(World* w,int* dst, Vec3 ViewPort)
+	void DrawNextFrame(World* w, int* dst, Vec3 ViewPort)
 	{
 
 	}

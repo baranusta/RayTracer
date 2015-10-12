@@ -23,20 +23,21 @@ Sphere::Sphere(std::string line)
 	id = Count++;
 	toRight = Count % 2 == 0;
 	eachword >> xPos >> yPos >> zPos;
-	ColorSpecular = Vec3(xPos, yPos, zPos);
+	ColorSpecular = Color(xPos, yPos, zPos);
 	eachword >> xPos >> yPos >> zPos;
-	ColorDiffuse = Vec3(xPos, yPos, zPos);
+	ColorDiffuse = Color(xPos, yPos, zPos);
 	eachword >> xPos >> yPos >> zPos;
-	ColorAmbient = Vec3(xPos, yPos, zPos);
+	ColorAmbient = Color(xPos, yPos, zPos);
 }
 
-void Sphere::getInfo(Vec3&pos, float &r, Vec3& c, bool& is)
+void Sphere::getInfo(Vec3&pos, float &r, Color& c, bool& is)
 {
 	is = toRight;
 	c = ColorDiffuse;
 	pos = center;
 	r = radius;
 }
+
 float Sphere::getMaxX()
 {
 	return center.getX() + radius;

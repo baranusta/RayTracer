@@ -9,10 +9,13 @@
 class RayTracingStrategyCPU: public RayTracingStrategy
 {
 public:
+	RayTracingStrategyCPU(float d, float p)
+		: RayTracingStrategy(d, p)
+	{}
+
 	void IterateInnerLoop(World *w, int* dst, Vec3 ViewPort, int i, int k);
 private:
-	int rgbToInt(float r, float g, float b);
-	int DetermineColor(Vec3 Light, Vec3 ray, Vec3 Normal, Vec3 hitPoint, int objId, float ka, std::vector<GeometricObject*>* Objects);
+	int DetermineColor(Light light, Vec3 ray, Vec3 Normal, Vec3 hitPoint, int objId, std::vector<GeometricObject*>* Objects);
 };
 
 #endif

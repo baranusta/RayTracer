@@ -1,7 +1,7 @@
 #ifndef _LIGHT_H_
 #define _LIGHT_H_
 
-#include "..\..\Utils\Vec3.h"
+#include "..\..\Utils\Utils.h"
 
 class Light
 {
@@ -10,6 +10,11 @@ public:
 	status(true), AmbientLight(Ambient), DiffuseLight(Diffuse), SpecularhighLight(Specular), position(pos)
 	{};
 	~Light();
+	Vec3 getPos();
+
+	Color getSpec();
+	Color getDiffuse();
+	Color getAmbient();
 	void changeStatus(bool);
 	void changePosition(Vec3 pos);
 	

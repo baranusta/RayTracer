@@ -13,15 +13,15 @@ int GeometricObject::getId()
 }
 
 
-Vec3 GeometricObject::getDiffuse()
+Color GeometricObject::getDiffuse()
 {
 	return ColorDiffuse;
 }
-Vec3 GeometricObject::getAmbient()
+Color GeometricObject::getAmbient()
 {
 	return ColorDiffuse;
 }
-Vec3 GeometricObject::getSpecular()
+Color GeometricObject::getSpecular()
 {
 	return ColorDiffuse;
 }

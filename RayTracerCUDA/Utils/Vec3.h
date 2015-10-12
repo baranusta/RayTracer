@@ -21,7 +21,6 @@ private:
 	float z;
 };
 
-typedef Vec3 Color;
 typedef Vec3 Angle;
 
 #endif

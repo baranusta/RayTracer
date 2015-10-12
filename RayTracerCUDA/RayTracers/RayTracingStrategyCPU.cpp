@@ -32,31 +32,19 @@ void RayTracingStrategyCPU::IterateInnerLoop(World *w, int* dst, Vec3 ViewPort, 
 		}
 
 		if (minDist != 1000000)
-			dst[t * (int)ViewPort.getY() + k] = DetermineColor(w->GetLight(), ray, Normal, hitPoint, objectId, w->GetKA(), Objects);
+			dst[t * (int)ViewPort.getY() + k] = DetermineColor(w->GetLight(), ray, Normal, hitPoint, objectId, Objects);
 		else
-			dst[t * (int)ViewPort.getY() + k] = rgbToInt(0.8f, 0.8f, 0.8f);
+			dst[t * (int)ViewPort.getY() + k] = w->GetAmbient().rgbToInt();
 		//World->SendRay(collidedObj,size,ray,eyePos,Objects);
 		//Color pixelC = DetermineColor(collidedObj,size);
 	}
 }
 
-int RayTracingStrategyCPU::rgbToInt(float r, float g, float b)
+int RayTracingStrategyCPU::DetermineColor(Light light, Vec3 ray, Vec3 Normal, Vec3 hitPoint, int objId, std::vector<GeometricObject*>* Objects)
 {
-	if (r > 1.0f)
-		r = 1.0f;
-	if (g > 1.0f)
-		g = 1.0f;
-	if (b > 1.0f)
-		b = 1.0f;
-	return (int(r * 255) << 16) | (int(g * 255) << 8) | int(b * 255);
-}
-
-
-int RayTracingStrategyCPU::DetermineColor(Vec3 Light, Vec3 ray, Vec3 Normal, Vec3 hitPoint, int objId, float ka, std::vector<GeometricObject*>* Objects)
-{
-	Vec3 SourceToLight = Light - hitPoint;
+	Vec3 lightPos = light.getPos();
+	Vec3 SourceToLight = lightPos - hitPoint;
 	SourceToLight.Normalize();
-	Normal.Normalize();
 	bool willBeShaded = false;
 
 	for (int id = 0; id < Objects->size(); id++)
@@ -70,19 +58,24 @@ int RayTracingStrategyCPU::DetermineColor(Vec3 Light, Vec3 ray, Vec3 Normal, Vec
 		}
 	}
 
-	Vec3 amb = (*Objects)[objId]->getDiffuse();
-	Vec3 baseColor = Vec3(amb.getX()*ka, amb.getY()*ka, amb.getZ()*ka);
+	GeometricObject* obj = (*Objects)[objId];
+	Color objAmb = obj->getAmbient();
+	Color baseColor = objAmb * light.getAmbient();
 	if (willBeShaded)
 	{
-		return rgbToInt(baseColor.getX(), baseColor.getY(), baseColor.getZ());
+		return baseColor.rgbToInt();
 	}
 	else{
-		float kd = std::max(0.f, SourceToLight.dotProduct(Normal));
+		float kd = diffuseConst;
 		Vec3 h = SourceToLight - ray;
+		Normal.Normalize();
 		h.Normalize();
-		float ks = pow(std::max(0.f, h.dotProduct(Normal)), 20.0);
-		baseColor = baseColor + Vec3(amb.getX()*kd, amb.getY()*kd, amb.getZ()*kd);
-		baseColor = baseColor + Vec3(amb.getX()*ks, amb.getY()*ks, amb.getZ()*ks);
-		return rgbToInt(baseColor.getX(), baseColor.getY(), baseColor.getZ());
+		//Diffuse Illumination
+		float lDotNormal = std::max(0.f, SourceToLight.dotProduct(Normal));
+		baseColor = baseColor + (obj->getDiffuse() * lDotNormal * kd * light.getDiffuse());
+		//Specular Lightning
+		float phong = pow(std::max(0.f, h.dotProduct(Normal)), phongPower);
+		baseColor = baseColor + (obj->getSpecular() * phong * light.getSpec());
+		return baseColor.rgbToInt();
 	}
 }

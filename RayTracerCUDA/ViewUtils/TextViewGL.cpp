@@ -8,6 +8,11 @@ int TextViewGL::GetItemCount(){
 	return _itemCount;
 }
 
+void TextViewGL::ResetItemCount()
+{
+	_itemCount = 0;
+}
+
 TextViewGL::TextViewGL(float xMargin,float yMargin)
 {
 	text = "FPS: 1";
@@ -45,7 +50,7 @@ void TextViewGL::SetText(char* c)
 
 void TextViewGL::draw()
 {
-	glColor3f(col.getX(), col.getY(), col.getZ());
+	glColor3f(col.getR(), col.getG(), col.getB());
 	glRasterPos2f(xPos, yPos);
 
 	for (char k: text)

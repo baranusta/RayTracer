@@ -1,10 +1,14 @@
 #include "World.h"
 
-
-
 World::World()
 {
-	Light.push_back(Vec3(0, 0, 500));
+	AmbientColor = Color(0,0,0);
+	Objects = new std::vector<GeometricObject*>();
+}
+
+World::World(Color c)
+{
+	AmbientColor = c;
 	Objects = new std::vector<GeometricObject*>();
 }
 
@@ -21,14 +25,24 @@ void World::AddObject(GeometricObject* p)
 	Objects->push_back(p);
 }
 
-float World::GetKA()
+Color World::GetAmbient()
 {
-	return ka;
+	return AmbientColor;
 }
 
-Vec3 World::GetLight()
+void World::AddLight(Vec3 pos, Color Ambient, Color Diffuse, Color Specular)
 {
-	return Light[0];
+	AddLight(Light(pos,Ambient,Diffuse,Specular));
+}
+
+void World::AddLight(Light light)
+{
+	lights.push_back(light);
+}
+
+Light World::GetLight()
+{
+	return lights[0];
 }
 
 void World::UpdateObjects()
@@ -66,17 +80,18 @@ void World::CopyToGPUArray(GLfloat *obj)
 {
 	for (int i = 0; i < Objects->size(); i++)
 	{
-		Vec3 Pos, Color;
+		Vec3 pos;
+		Color color;
 		float r;
 		bool toRight;
-		(*Objects)[i]->getInfo(Pos, r, Color, toRight);
-		obj[i * 8] = Pos.getX();
-		obj[i * 8 + 1] = Pos.getY();
-		obj[i * 8 + 2] = Pos.getZ();
+		(*Objects)[i]->getInfo(pos, r, color, toRight);
+		obj[i * 8] = pos.getX();
+		obj[i * 8 + 1] = pos.getY();
+		obj[i * 8 + 2] = pos.getZ();
 		obj[i * 8 + 3] = r;
-		obj[i * 8 + 4] = Color.getX();
-		obj[i * 8 + 5] = Color.getY();
-		obj[i * 8 + 6] = Color.getZ();
+		obj[i * 8 + 4] = color.getR();
+		obj[i * 8 + 5] = color.getG();
+		obj[i * 8 + 6] = color.getB();
 		obj[i * 8 + 7] = toRight ? 1.0f : -1.0f;
 	}
 }

@@ -6,12 +6,19 @@
 
 class RayTracingStrategy{
 public:
+	RayTracingStrategy(float d,float p)
+		:diffuseConst(d), phongPower(p)
+	{
+	}
+
 	virtual void DrawNextFrame(World *w,int* dst, Vec3 ViewPort) = 0;
 	char* GetName()
 	{
 		return name;
 	}
 protected:
+	const float diffuseConst;
+	const float phongPower;
 	char* name;
 };
 

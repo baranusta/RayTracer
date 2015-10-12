@@ -8,12 +8,13 @@ class RayTracingStrategySequential : public RayTracingStrategyCPU
 {
 public:
 
-	RayTracingStrategySequential()
+	RayTracingStrategySequential(float d, float p)
+		: RayTracingStrategyCPU(d, p)
 	{
 		this->name = "CPU";
 	}
 
-	void DrawNextFrame(World* w,int *dst, Vec3 ViewPort)
+	void DrawNextFrame(World* w, int *dst, Vec3 ViewPort)
 	{
 		for (int i = -ViewPort.getY() / 2, k = 0; i < ViewPort.getY() / 2; i++, k++)
 		{

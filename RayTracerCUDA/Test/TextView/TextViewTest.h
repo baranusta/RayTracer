@@ -10,6 +10,13 @@
 class TextViewTest{
 public:
 	enum ViewType {TextView,FrameView};
+	
+	~TextViewTest();
+	void ZeroItem_TotalCountTest();
+	void OneTextViewAdd_TotalCountTest();
+	void OneFrameViewAdd_TotalCountTest();
+	void RandomNumberItem_RandomTypeTVAdd_TotalCountTest();
+
 	void AddView(float xMargin, float yMargin, int number,ViewType type);
 private:
 	template <class view>
@@ -21,6 +28,43 @@ private:
 		}
 	}
 };
+
+TextViewTest::~TextViewTest()
+{
+	TextViewGL::ResetItemCount();
+}
+
+void TextViewTest::ZeroItem_TotalCountTest()
+{
+	REQUIRE(TextViewGL::GetItemCount() == 0);
+}
+
+void TextViewTest::OneTextViewAdd_TotalCountTest()
+{
+	float yMargin = 0.90f;
+	AddView(0, yMargin, 1, TextViewTest::TextView);
+	REQUIRE(TextViewGL::GetItemCount() == 1);
+}
+
+void TextViewTest::OneFrameViewAdd_TotalCountTest()
+{
+	float yMargin = 0.90f;
+	AddView(0, yMargin, 1, TextViewTest::FrameView);
+	REQUIRE(TextViewGL::GetItemCount() == 1);
+}
+
+void TextViewTest::RandomNumberItem_RandomTypeTVAdd_TotalCountTest()
+{
+	RandomGenerator s;
+	float yMargin = 0.90f;
+	int totalNumberOfTV = s.getInt();
+	int numberOfText = s.getInt(totalNumberOfTV);
+	int numberOfFrame = totalNumberOfTV - numberOfText;
+	AddView(0, yMargin, numberOfText, TextViewTest::TextView);
+	AddView(0, yMargin, numberOfFrame, TextViewTest::FrameView);
+
+	REQUIRE(TextViewGL::GetItemCount() == totalNumberOfTV);
+}
 
 
 void TextViewTest::AddView(float xMargin, float yMargin, int number, ViewType type)
@@ -36,21 +80,22 @@ void TextViewTest::AddView(float xMargin, float yMargin, int number, ViewType ty
 		}
 }
 
-TEST_CASE("TextView test", "[tv]") {
-	TextViewTest t;
-	SECTION("created number of textviews") {
-		int iter = -1;
-		int total = 0;
-		float yMargin = 0.90f;
-		RandomGenerator s;
-		while (++iter < 100){
-			total += iter;
-			int numberOfText = s.getInt(iter);	
-			int numberOfFrame = iter - numberOfText;
-			t.AddView(0, yMargin, numberOfText, TextViewTest::TextView);
-			t.AddView(0, yMargin, numberOfFrame, TextViewTest::FrameView);
-			REQUIRE(TextViewGL::GetItemCount() == total);
-		}
+TEST_CASE("TextView test (totalCount)", "[tv]") {
+	SECTION("created zero textviews") {
+		TextViewTest t;
+		t.ZeroItem_TotalCountTest();
+	}
+	SECTION("created one textview") {
+		TextViewTest t;
+		t.OneTextViewAdd_TotalCountTest();
+	}
+	SECTION("created one frame text view") {
+		TextViewTest t;
+		t.OneFrameViewAdd_TotalCountTest();
+	}
+	SECTION("created random number of textviews") {
+		TextViewTest t;
+		t.RandomNumberItem_RandomTypeTVAdd_TotalCountTest();
 	}
 	printf("TextView tests\n");
 }

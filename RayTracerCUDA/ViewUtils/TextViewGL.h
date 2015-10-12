@@ -1,7 +1,7 @@
 #ifndef _TEXTVIEWGL_H_
 #define _TEXTVIEWGL_H_
 
-#include "..\Utils\Vec3.h"
+#include "..\Utils\Utils.h"
 #include "GL\freeglut.h"
 #include <string>
 
@@ -13,7 +13,9 @@ public:
 	virtual void draw();
 	void SetColor(Color col);
 	void SetText(char* text);
+
 	static int GetItemCount();
+	static void ResetItemCount();
 private:
 	void InitObject(float xMargin, float yMargin,Color c);
 	std::string text;

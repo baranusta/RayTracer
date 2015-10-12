@@ -7,7 +7,8 @@ class RayTracingStrategyOpenMP : public RayTracingStrategyCPU
 {
 public:
 
-	RayTracingStrategyOpenMP()
+	RayTracingStrategyOpenMP(float d, float p)
+		: RayTracingStrategyCPU(d, p)
 	{
 		this->name = "OpenMP";
 	}

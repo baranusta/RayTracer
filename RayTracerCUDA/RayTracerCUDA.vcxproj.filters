@@ -27,6 +27,12 @@
     <ClCompile Include="Test\MainTest.cpp">
       <Filter>Test</Filter>
     </ClCompile>
+    <ClCompile Include="Objects\Light\Light.cpp">
+      <Filter>Objects\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\Color.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="RayTrace.cu" />
@@ -114,6 +120,12 @@
       <Filter>Test\TextView</Filter>
     </ClInclude>
     <ClInclude Include="Utils\RandomGenerator.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Color.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Utils.h">
       <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>

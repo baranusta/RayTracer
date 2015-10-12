@@ -1,7 +1,7 @@
 #ifndef _SPHERE_H_
 #define _SPHERE_H_
 
-#include "..\..\Utils\Vec3.h"
+#include "..\..\Utils\Utils.h"
 #include <string>
 #include <sstream>
 #include "GeometricObject.h"
@@ -20,7 +20,7 @@ public:
 	float getMinZ();
 	bool shouldExist();
 	void Move();
-	void getInfo(Vec3&, float &r, Vec3& c, bool&);
+	void getInfo(Vec3&, float &r, Color& c, bool&);
 	bool isRayIntersects(Vec3 ray, Vec3 src, Vec3&, Vec3 & Point, float& dist);
 	bool isIntersects(Vec3 p);
 	int nextPos(Vec3 p);

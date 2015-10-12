@@ -28,7 +28,7 @@
 
 //******************//
 //***TEST
-#define WILLTEST true
+#define WILLTEST false
 extern int TestMain();
 //******************//
 
@@ -312,7 +312,6 @@ void Initialize() {
 	//default Mode text set
 	keyBoardListener('1', 0, 0);
 
-	glutMainLoop();
 
 
 }
@@ -337,15 +336,25 @@ int main()
 		return TestMain();
 	}
 	else{
-		world = new World();
+		world = new World(Color(0.3f, 0.3f, 0.3f));
 		CreateWorld("World.txt");
-		mRayTracerController.AddStrategy(RayTracingOptions::Sequential, new RayTracingStrategySequential());
-		mRayTracerController.AddStrategy(RayTracingOptions::OpenMP, new RayTracingStrategyOpenMP());
-		mRayTracerController.AddStrategy(RayTracingOptions::CUDA, new RayTracingStrategyCUDA());
+		
+		world->AddLight(Vec3(0.f, 0.f, 500.f),
+						Color(0.1f, 0.1f, 0.1f), 
+						Color(0.8f, 0.8f, 0.8f), 
+						Color(1.f, 1.f, 1.f));
+
+
+		mRayTracerController.AddStrategy(RayTracingOptions::Sequential, new RayTracingStrategySequential(0.8f,20.0));
+		mRayTracerController.AddStrategy(RayTracingOptions::OpenMP, new RayTracingStrategyOpenMP(0.8f, 20.0));
+		mRayTracerController.AddStrategy(RayTracingOptions::CUDA, new RayTracingStrategyCUDA(0.8f, 20.0));
 
 		checkCudaErrors(cudaGLSetGLDevice(0));
 
 		Initialize();
+
+		glutMainLoop();
+
 		return 0;
 	}
 }
